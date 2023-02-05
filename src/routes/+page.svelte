@@ -26,7 +26,6 @@
 		<label for="StartValue">Enter the starting number of your Odometer</label>
 		<input
 			class="w3-container w3-input w3-cell w3-cell-middle"
-			type="number"
 			inputmode="numeric"
 			name="StartValue"
 			id="Input1"
