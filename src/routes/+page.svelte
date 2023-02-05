@@ -9,16 +9,12 @@
 		return value === value.split('').reverse().join('');
 	}
 
-	let nextNum = startValue;
-	async function getNext() {
-		let nextNum = startValue;
+	async function getNext(value: number = startValue) {
+		let nextNum = value;
 		while (!checkNum(nextNum)) {
 			nextNum++;
 		}
 		return nextNum;
-	}
-	$: {
-		getNext().then((val) => (nextNum = val));
 	}
 </script>
 
@@ -55,7 +51,7 @@
 				<p>This is NOT a palindrome!</p>
 			</div>
 
-			{#await getNext()}
+			{#await getNext(startValue)}
 				<div class="w3-container w3-cell w3-cell-bottom">
 					<p>Calculating next palindrome</p>
 				</div>
