@@ -26,7 +26,7 @@
 		<h1 class="w3-center w3-xlarge">Welcome to my odometer palindrome finder!</h1>
 	</header>
 	<div class="w3-content w3-padding-64">
-		<form method="post">
+		<form method="post" class="w3-center">
 			<label for="startValue">Enter the starting number of your Odometer</label>
 			<input
 				class="w3-container w3-input w3-cell w3-cell-middle"
@@ -35,6 +35,7 @@
 				id="Input1"
 				bind:value={startValue}
 			/>
+			<button type="submit" class="w3-button w3-green">Save</button>
 		</form>
 	</div>
 
@@ -76,3 +77,20 @@
 		</footer>
 	{/if}
 </main>
+
+<style>
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	form * {
+		margin: 20px;
+	}
+
+	#Input1 {
+		max-width: 10rem;
+		text-align: center;
+	}
+</style>
