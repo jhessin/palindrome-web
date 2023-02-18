@@ -1,7 +1,10 @@
 <script lang="ts">
 	import 'w3-css/w3.css';
+	import type { PageServerData } from './$types';
 
-	let startValue = 0;
+	export let data: PageServerData;
+
+	let { startValue } = data;
 
 	function checkNum(num?: number): boolean {
 		if (!num) return false;
@@ -23,14 +26,16 @@
 		<h1 class="w3-center w3-xlarge">Welcome to my odometer palindrome finder!</h1>
 	</header>
 	<div class="w3-content w3-padding-64">
-		<label for="StartValue">Enter the starting number of your Odometer</label>
-		<input
-			class="w3-container w3-input w3-cell w3-cell-middle"
-			inputmode="numeric"
-			name="StartValue"
-			id="Input1"
-			bind:value={startValue}
-		/>
+		<form method="post">
+			<label for="startValue">Enter the starting number of your Odometer</label>
+			<input
+				class="w3-container w3-input w3-cell w3-cell-middle"
+				inputmode="numeric"
+				name="startValue"
+				id="Input1"
+				bind:value={startValue}
+			/>
+		</form>
 	</div>
 
 	{#if checkNum(startValue)}
@@ -41,7 +46,15 @@
 				<p>This is a palindrome!</p>
 			</div>
 
-			<div class="w3-container w3-cell w3-cell-bottom" />
+			{#await getNext(startValue + 1)}
+				<div class="w3-container w3-cell w3-cell-bottom">
+					<p>Calculating next palindrome ...</p>
+				</div>
+			{:then value}
+				<div class="w3-container w3-cell w3-cell-bottom">
+					<p>Your next palindrom will be {value}. That is {value - startValue} miles!</p>
+				</div>
+			{/await}
 		</footer>
 	{:else}
 		<footer class="w3-cell-row w3-padding-64">
@@ -53,7 +66,7 @@
 
 			{#await getNext(startValue)}
 				<div class="w3-container w3-cell w3-cell-bottom">
-					<p>Calculating next palindrome</p>
+					<p>Calculating next palindrome ...</p>
 				</div>
 			{:then value}
 				<div class="w3-container w3-cell w3-cell-bottom">
